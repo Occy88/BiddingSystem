@@ -1,0 +1,10 @@
+*/__pycache__
+__pycache__
+*/*/__pycache__
+*/.idea
+.idea
+docs
+node_modules
+dist
+*/dist
+venv
