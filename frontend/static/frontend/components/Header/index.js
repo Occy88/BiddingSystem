@@ -26,7 +26,8 @@ class Header extends React.Component {
         this.state = {
             width: 0, height: 0,
             links: [
-                {'url': '/example-page', id: 1, 'text': 'example-page'},
+                {'url': '/home', id: 1, 'text': 'home'},
+                 {'url': '/trade2', id: 1, 'text': 'trade2'},
             ]
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);

@@ -20,9 +20,11 @@ from . import views
 
 urlpatterns = [
     path('frontend/', include('frontend.urls')),
+    path('backend/', include('backend.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),  # new
     path('BiddingSystem/',include('frontend.urls')),
+
     path('', include('frontend.urls')),
 
 

@@ -4,10 +4,11 @@ import './style.scss'
 import languages from "../../../../../accounts/static/accounts/components/AccountService/lang";
 import Header from "../Header";
 import Footer from "../Footer";
-import ExamplePage from '../ExamplePage'
+import Home from '../Home'
+import Trade2 from "../Trade2";
 let lang = languages[document.documentElement.lang];
 
-const app_url_prefix = '/frontend';
+const app_url_prefix = '';
 
 export default class Routes extends React.Component {
     constructor(props) {
@@ -20,14 +21,16 @@ export default class Routes extends React.Component {
         return (
             <Router>
                 <Header/>
+                <div style={{height:'50px'}}></div>
                 <Switch {...this.props}>
-                    <Route path={app_url_prefix + "/example-page"} render={(routeProps) => (
-                        <ExamplePage {...routeProps} />
+                    <Route path={"/home"} render={(routeProps) => (
+                        <Home {...routeProps} />
+                    )}/>
+                    <Route path={"/trade2"} render={(routeProps) => (
+                        <Trade2 {...routeProps} />
                     )}/>
                     <Route path="*" render={() => {
-                        return (
-                            <h2 style={{"textAlign": "center", "padding": "30px"}}>Page Not Found</h2>
-                        )
+                        window.location='/home'
                     }}/>
                 </Switch>
                 <Footer/>
