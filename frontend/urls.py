@@ -9,7 +9,7 @@ from django.conf.urls import url
 app_name = 'frontend'
 urlpatterns = [
     # path('stock_detail/', views.StockList.as_view()),
-    url(r'^.*$', views.ServeApp.as_view()),
+    url(r'^.*$', views.ServeApp.as_view(),name='home'),
 
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
