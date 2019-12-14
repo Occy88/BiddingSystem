@@ -17,16 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from . import views
+from django.conf.urls import url
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('frontend/', include('frontend.urls')),
     path('backend/', include('backend.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),  # new
-    path('BiddingSystem/',include('frontend.urls')),
-
-    path('', include('frontend.urls')),
-
+    path('frontend/', include('frontend.urls')),
+    url(r'^.*$', include('frontend.urls')),
 
 ]
 handler404 = 'BiddingSystem.views.view_404'
