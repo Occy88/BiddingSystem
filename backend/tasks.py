@@ -6,19 +6,6 @@ from celery.schedules import crontab
 app = Celery()
 
 
-@app.on_after_configure.connect
-def setup_periodic_tasks(sender, **kwargs):
-    # Executes every Monday morning at 7:30 a.m.
-    sender.add_periodic_task(
-        crontab(minute='*/2'),
-        start_session()
-    )
-    sender.add_periodic_task(
-        crontab(minute='1-59/2'),
-        end_session()
-    )
-
-
 @app.task
 def start_session():
     Session.objects.create()
@@ -32,3 +19,29 @@ def end_session():
     for s in sess:
         s.active = False
         s.save()
+
+
+@app.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwargs):
+    sender.add_periodic_task(
+        crontab(minute='*/2'),
+        start_session()
+    )
+    sender.add_periodic_task(
+        crontab(minute='1-59/2'),
+        end_session()
+    )
+
+
+app.conf.beat_schedule = {
+    'task-number-1': {
+        'task': 'backend.tasks.start_session',
+        'schedule': crontab(minute='*/2'),
+        'args': ('')
+    },
+    'ask-number-2': {
+        'task': 'backend.tasks.end_session',
+        'schedule': crontab(minute='1-59/2'),
+        'args': ('')
+    }
+}
