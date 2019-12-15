@@ -105,23 +105,6 @@ TEMPLATES = [
 ]
 from celery.schedules import crontab
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_BEAT_SCHEDULE = {
-    'task-number-1': {
-        'task': 'backend.tasks.start_session',
-        'schedule': crontab(minute='*/2'),
-        'args': ('')
-    },
-    'ask-number-2': {
-        'task': 'backend.tasks.end_session',
-        'schedule': crontab(minute='1-59/2'),
-        'args': ('')
-    }
-}
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -226,3 +209,15 @@ if HEROKU:
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_RESULT_SERIALIZER = 'json'
     CELERY_TIMEZONE = TIME_ZONE
+    CELERY_BEAT_SCHEDULE = {
+        'task-number-1': {
+            'task': 'backend.tasks.start_session',
+            'schedule': crontab(minute='*/2'),
+            'args': ('')
+        },
+        'ask-number-2': {
+            'task': 'backend.tasks.end_session',
+            'schedule': crontab(minute='1-59/2'),
+            'args': ('')
+        }
+    }
