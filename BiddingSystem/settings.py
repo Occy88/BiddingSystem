@@ -23,8 +23,8 @@ MASTER_BASE_DIR = os.path.dirname(__file__)
 SECRET_KEY = 'v8ojti^$1m0ys%*q#qv*b9(+6)am3)^t1n601$rhk!6m2#&rmi'
 API_KEY_SECRET = 'ti^$0ys%1m0ys%n601$rhk!*q#q1$rhk!6m2#&m0ys%'
 # SECURITY WARNING: don't run with debug turned on in production!
-ENV_ROLE = 'production'
-# ENV_ROLE = 'development'
+# ENV_ROLE = 'production'
+ENV_ROLE = 'development'
 if ENV_ROLE == 'production':
     print("PRODUCTION")
     BASE_URL = 'http://localhost:8080/staticfiles/'
@@ -186,7 +186,7 @@ STAFF_URLS = {
     r'^accounts/manager/[\s\S]*',
 }
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/BiddingSystem/'
 LOGIN_EXEMPT_URLS = {
 }
 
@@ -220,11 +220,26 @@ STATICFILES_DIRS = ['dist']
 STATIC_URL = BASE_URL
 if HEROKU:
     print("HEROKU  ")
+
+    from urllib.parse import urlparse
+    import redis
+
     django_heroku.settings(locals())
-    BROKER_URL = os.environ.get('REDIS_URL')
-    CELERY_BROKER_URL = os.environ['REDIS_URL']
-    CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
+    r = redis.from_url(os.environ.get("REDIS_URL"))
+    BROKER_URL = redis.from_url(os.environ.get("REDIS_URL"))
+    CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
     CELERY_ACCEPT_CONTENT = ['application/json']
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_RESULT_SERIALIZER = 'json'
-    CELERY_TIMEZONE = TIME_ZONE
+    CELERY_TIMEZONE = 'Canada/Eastern'
+    redis_url = urlparse(os.environ.get('REDIS_URL'))
+    CACHES = {
+        "default": {
+            "BACKEND": "redis_cache.RedisCache",
+            "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+            "OPTIONS": {
+                "PASSWORD": redis_url.password,
+                "DB": 0,
+            }
+        }
+    }

@@ -2,6 +2,8 @@ from __future__ import absolute_import, unicode_literals
 from celery import Celery
 from celery.schedules import crontab
 from .models import Session
+import inspect
+import collections
 app = Celery()
 # @app.on_after_configure.connect
 # def setup_periodic_tasks(sender, **kwargs):
@@ -31,3 +33,9 @@ def end_session():
         s.save()
 
 
+TaskInfo = collections.namedtuple("TaskInfo", "fullname name task")
+ALL_TASKS = {
+    __name__ + "." + _k: TaskInfo(__name__ + "." + _k, _k, _v)
+    for _k, _v in inspect.getmembers(sys.modules[__name__])
+    if isinstance(_v, Task)
+}
