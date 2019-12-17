@@ -60,6 +60,7 @@ class SubmitBid(APIView):
     def post(self, request, format=None):
         print("===============\n\n\n")
         print(request.data)
+        print(request.user.profile.captcha)
         if request.data['mathcaptcha'] == request.user.profile.captcha:
             bid = Bid.objects.create(session=Session.objects.latest('time_start'),
                                      price=request.data['price'],
