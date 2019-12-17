@@ -58,6 +58,8 @@ class SubmitBid(APIView):
     permission_classes = (SessionOpenPermission,)
 
     def post(self, request, format=None):
+        print("===============\n\n\n")
+        print(request.data)
         if request.data['mathcaptcha'] == request.user.profile.captcha:
             bid = Bid.objects.create(session=Session.objects.latest('time_start'),
                                      price=request.data['price'],
