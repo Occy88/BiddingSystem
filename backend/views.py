@@ -45,7 +45,7 @@ class GetMyImage(APIView):
     permission_classes = (SessionOpenPermission,)
 
     def get(self, request, format=None):
-        dir = os.getcwd() + '/backend/captcha_images/dirty/'
+        dir = os.getcwd() + '/backend/captcha_images/clean/'
         image = random.choice(os.listdir(dir))
         image_name = image.split('.')[0]
         request.user.profile.captcha = image_name
