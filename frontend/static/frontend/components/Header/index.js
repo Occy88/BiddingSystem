@@ -13,7 +13,7 @@ import settings_active_svg from '../../../../../static/img/settings_active.png'
 
 let lang = languages[document.documentElement.lang];
 
-const app_url_prefix = "/frontend";
+const app_url_prefix = "";
 
 //THIS FILE REQUIRES A STATIC_URL to be defined in the base html file.
 if (STATIC_URL === undefined) {

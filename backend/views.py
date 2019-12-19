@@ -17,7 +17,8 @@ import datetime
 from .models import Bid
 from rest_framework import generics
 from .helper import query_to_dict_clean
-from .serializers import BidSerializer
+from .serializers import BidSerializer, SessionSerializer
+
 
 # Create your views here.
 class SessionOpenPermission(BasePermission):
@@ -41,15 +42,17 @@ class ServerTime(View):
 
 
 class GetMyImage(APIView):
-    permission_classes = (SessionOpenPermission,)
+    # permission_classes = (SessionOpenPermission,)
 
     def get(self, request, format=None):
-        dir = os.getcwd() + '/backend/captcha_images/dirty/'
-        print(random.choice(os.listdir(dir)))
+        dir = os.getcwd() +\
+              '/backend/captcha_images/kazaK/'
         image = random.choice(os.listdir(dir))
         image_name = image.split('.')[0]
         request.user.profile.captcha = image_name
-        with open(dir + random.choice(os.listdir(dir)), 'rb') as fh:
+
+        print(image_name)
+        with open(dir + image, 'rb') as fh:
             return HttpResponse(fh.read(), content_type='image/png')
 
 
@@ -66,6 +69,25 @@ class SubmitBid(APIView):
         return JsonResponse({'success': False})
 
 
+class LastSession(generics.GenericAPIView):
+    """
+    This returns the serialized list of companies to which the user
+    has permission, i.e. user checked against each company
+
+    """
+
+    def get(self,request):
+        """
+        Only returns the query set for said company
+        :return:
+        """
+        queryset = Session.objects.latest('time_start')
+        ser=SessionSerializer(queryset)
+
+        return JsonResponse(ser.data)
+        # return Company.objects.all()
+
+
 class BidList(generics.ListCreateAPIView):
     """
     This returns the serialized list of companies to which the user
@@ -79,7 +101,7 @@ class BidList(generics.ListCreateAPIView):
         Only returns the query set for said company
         :return:
         """
-        queryset=Session.objects.latest('time_start').bid_set
+        queryset = Session.objects.latest('time_start').bid_set
         print(queryset)
         print("-----------------------")
         return queryset

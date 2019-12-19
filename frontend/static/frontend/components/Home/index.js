@@ -1,12 +1,14 @@
 import React from 'react'
 import languages from "./lang.js";
-import jQuery from 'jquery'
+import jQuery from 'jquery';
+import $ from 'jquery'
 import './main.css';
-
+console.log(jQuery.param({'hid':'hi'}));
+$(document).ready(function () {
+$('body').append('<div>HELLO</div>');
+});
 import './popper.min.js'
 // import './jquery.ui.datepicker-ru.js'
-console.log('LOADED 2')
-console.log(jQuery)
 
 let lang = languages[document.documentElement.lang];
 /**
@@ -27,11 +29,9 @@ export default class Home extends React.Component {
     }
 
     render() {
-        console.log('RENDERING');
         return (
             <div>
                 <div className="clear-line"></div>
-                {console.log('hi')}
                 <div id="logo-block">
                     <div id="logo-image">
                         <center><img id="logo-image-src" src="../logo.png"></img>
@@ -60,7 +60,6 @@ export default class Home extends React.Component {
                         </a>
                     </div>
                 </div>
-                {console.log('hi2')}
                 <div>
                     <hr className="corp-line"/>
                 </div>
@@ -122,7 +121,6 @@ export default class Home extends React.Component {
                                             в
                                             торгах</b></td>
                                     </tr>
-                                    {console.log('hi3')}
                                     <tr>
                                         <td className="table-index-center-border">Регистрация:</td>
                                         <td>зарегистрирован</td>
@@ -160,7 +158,6 @@ export default class Home extends React.Component {
                                     </tr>
                                     </tbody>
                                 </table>
-                            {console.log('hi3')}
                     </div>
                 </div>
             </div>

@@ -16,7 +16,28 @@ class BidSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Bid
-        fields = ('id', 'time','price','quantity')
+        fields = ('id','user', 'time', 'price', 'quantity')
+
+    def create(self, validated_data):
+        """
+        Create and return a new `supplier` instance, given the validated data.
+        """
+        # validated_data.pop('shipments', None)
+        bid = Bid.objects.create(**validated_data)
+        return bid
+
+
+class SessionSerializer(serializers.ModelSerializer):
+    # to work out all the fk relationships be clever about what to show...
+    # perhaps nothing?
+    # perhaps Groups?
+
+    # shipment_sites = serializers.PrimaryKeyRelatedField(many=True, queryset=ShipmentSite.objects.all())
+    bid_set = BidSerializer(many=True)
+
+    class Meta:
+        model = Session
+        fields = ('id', 'time_start' ,'active', 'bid_set')
 
     def create(self, validated_data):
         """
