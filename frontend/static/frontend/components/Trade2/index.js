@@ -33,13 +33,8 @@ export default class Trade2 extends React.Component {
     render() {
         return (
             <div>
-<<<<<<< HEAD
-                Last Session:
-                <LastSession/>
-=======
                 Last Successful Trades
                 <LastSession handleSelect={this.nothing}/>
->>>>>>> 7a2535c3906c1f88c49d4c7e2c787a492efa856b
             </div>
         )
     }
