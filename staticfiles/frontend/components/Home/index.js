@@ -1,5 +1,6 @@
 import React from 'react'
 import languages from "./lang.js";
+<<<<<<< HEAD
 import jQuery from 'jquery';
 import $ from 'jquery'
 import './main.css';
@@ -9,6 +10,15 @@ $('body').append('<div>HELLO</div>');
 });
 import './popper.min.js'
 // import './jquery.ui.datepicker-ru.js'
+=======
+import jQuery from 'jquery'
+import './main.css';
+
+import './popper.min.js'
+// import './jquery.ui.datepicker-ru.js'
+console.log('LOADED 2')
+console.log(jQuery)
+>>>>>>> 7a2535c3906c1f88c49d4c7e2c787a492efa856b
 
 let lang = languages[document.documentElement.lang];
 /**
@@ -29,9 +39,17 @@ export default class Home extends React.Component {
     }
 
     render() {
+<<<<<<< HEAD
         return (
             <div>
                 <div className="clear-line"></div>
+=======
+        console.log('RENDERING');
+        return (
+            <div>
+                <div className="clear-line"></div>
+                {console.log('hi')}
+>>>>>>> 7a2535c3906c1f88c49d4c7e2c787a492efa856b
                 <div id="logo-block">
                     <div id="logo-image">
                         <center><img id="logo-image-src" src="../logo.png"></img>
@@ -60,6 +78,10 @@ export default class Home extends React.Component {
                         </a>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+                {console.log('hi2')}
+>>>>>>> 7a2535c3906c1f88c49d4c7e2c787a492efa856b
                 <div>
                     <hr className="corp-line"/>
                 </div>
@@ -121,6 +143,10 @@ export default class Home extends React.Component {
                                             в
                                             торгах</b></td>
                                     </tr>
+<<<<<<< HEAD
+=======
+                                    {console.log('hi3')}
+>>>>>>> 7a2535c3906c1f88c49d4c7e2c787a492efa856b
                                     <tr>
                                         <td className="table-index-center-border">Регистрация:</td>
                                         <td>зарегистрирован</td>
@@ -158,6 +184,10 @@ export default class Home extends React.Component {
                                     </tr>
                                     </tbody>
                                 </table>
+<<<<<<< HEAD
+=======
+                            {console.log('hi3')}
+>>>>>>> 7a2535c3906c1f88c49d4c7e2c787a492efa856b
                     </div>
                 </div>
             </div>

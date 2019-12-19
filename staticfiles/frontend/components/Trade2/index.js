@@ -7,6 +7,11 @@ import './popper.min.js'
 import BidList from "../../../../../backend/static/backend/components/BidList/BidList.jsx";
 import LastSession from "../../../../../backend/static/backend/components/LastSession/LastSession.jsx";
 // import './jquery.ui.datepicker-ru.js'
+<<<<<<< HEAD
+=======
+console.log('LOADED 2');
+console.log(jQuery);
+>>>>>>> 7a2535c3906c1f88c49d4c7e2c787a492efa856b
 
 let lang = languages[document.documentElement.lang];
 /**
@@ -26,11 +31,23 @@ export default class Trade2 extends React.Component {
 
     }
 
+<<<<<<< HEAD
     render() {
         return (
             <div>
                 Last Session:
                 <LastSession/>
+=======
+    nothing() {
+    }
+
+
+    render() {
+        return (
+            <div>
+                Last Successful Trades
+                <LastSession handleSelect={this.nothing}/>
+>>>>>>> 7a2535c3906c1f88c49d4c7e2c787a492efa856b
             </div>
         )
     }

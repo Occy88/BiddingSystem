@@ -5,12 +5,6 @@
 
 @media (min-width: 1440px) {
     body {
-        /*    background-image: url('../images/background.jpg');
-            -moz-background-size: 100%;
-            -webkit-background-size: 100%;
-            -o-background-size: 100%;
-            background-size: 100%;
-        */
         font-family: Times New Roman;
         background: #FAFAFA;
         color: #848484;
@@ -680,12 +674,6 @@
 
 @media (min-width: 800px) and (max-width: 1400px) {
     body {
-        /*    background-image: url('../images/background.jpg');
-        -moz-background-size: 100%;
-        -webkit-background-size: 100%;
-        -o-background-size: 100%;
-        background-size: 100%;
-        */
         font-family: Times New Roman;
         background: #FAFAFA;
         color: #848484;

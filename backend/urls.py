@@ -10,8 +10,8 @@ urlpatterns = [
     # path('stock_detail/', views.StockList.as_view()),
     url('serv-time2', views.ServerTime.as_view()),
     url('get-captcha', views.GetMyImage.as_view()),
-    url('bid', views.BidList.as_view()),
-    url('session', views.LastSession.as_view())
+    url('save-demand', views.SubmitBid.as_view()),
+    url('last-session', views.LastSession.as_view())
 
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

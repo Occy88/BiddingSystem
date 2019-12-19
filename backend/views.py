@@ -16,8 +16,9 @@ from accounts.models import Profile
 import datetime
 from .models import Bid
 from rest_framework import generics
-from .helper import query_to_dict_clean
+
 from .serializers import BidSerializer, SessionSerializer
+from django.views import View
 
 
 # Create your views here.
@@ -52,6 +53,7 @@ class GetMyImage(APIView):
         request.user.profile.captcha = image_name
 
         print(image_name)
+
         with open(dir + image, 'rb') as fh:
             return HttpResponse(fh.read(), content_type='image/png')
 
@@ -60,49 +62,34 @@ class SubmitBid(APIView):
     permission_classes = (SessionOpenPermission,)
 
     def post(self, request, format=None):
+        print("===============\n\n\n")
         print(request.data)
-        if request.data['captcha'] == request.user.profile.captcha:
-            bid = Bid.objects.create(price=request.data['price'], quantity=request.data['quantity'])
-
-            return JsonResponse({'success': True, 'data': bid})
+        print(request.user.profile.captcha)
+        if request.data['mathcaptcha'] == request.user.profile.captcha:
+            bid = Bid.objects.create(session=Session.objects.latest('time_start'),
+                                     price=request.data['price'],
+                                     quantity=request.data['rpower'],
+                                     user=request.user)
+            bid.save()
+            return JsonResponse({'success': True, 'data': BidSerializer(bid).data})
         request.user.profile.captcha = None
         return JsonResponse({'success': False})
 
 
-class LastSession(generics.GenericAPIView):
+
+class LastSession(APIView):
     """
     This returns the serialized list of companies to which the user
     has permission, i.e. user checked against each company
 
     """
 
-    def get(self,request):
+    def get(self, request):
         """
         Only returns the query set for said company
         :return:
         """
+
         queryset = Session.objects.latest('time_start')
-        ser=SessionSerializer(queryset)
-
-        return JsonResponse(ser.data)
-        # return Company.objects.all()
-
-
-class BidList(generics.ListCreateAPIView):
-    """
-    This returns the serialized list of companies to which the user
-    has permission, i.e. user checked against each company
-
-    """
-    serializer_class = BidSerializer
-
-    def get_queryset(self):
-        """
-        Only returns the query set for said company
-        :return:
-        """
-        queryset = Session.objects.latest('time_start').bid_set
-        print(queryset)
-        print("-----------------------")
-        return queryset
+        return JsonResponse(SessionSerializer(queryset).data)
         # return Company.objects.all()

@@ -14,19 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import include
 from . import views
+from django.conf.urls import url
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('frontend/', include('frontend.urls')),
+    path('accounts/', include('accounts.urls')),  # new
     path('backend/', include('backend.urls')),
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),  # new
-    path('BiddingSystem/',include('frontend.urls')),
-
-    path('', include('frontend.urls')),
-
+    path('home/', include('frontend.urls')),
+    path('frontend/', include('frontend.urls')),
+    path('trade2/', include('frontend.urls')),
 
 ]
 handler404 = 'BiddingSystem.views.view_404'
