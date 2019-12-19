@@ -47,7 +47,7 @@ class GetMyImage(APIView):
 
     def get(self, request, format=None):
         dir = os.getcwd() +\
-              '/backend/captcha_images/kazaK/'
+              '/backend/captcha_images/kazak/'
         image = random.choice(os.listdir(dir))
         image_name = image.split('.')[0]
         request.user.profile.captcha = image_name
