@@ -42,12 +42,13 @@ class ServerTime(View):
 
 
 class GetMyImage(APIView):
-    permission_classes = (SessionOpenPermission,)
+    # permission_classes = (SessionOpenPermission,)
 
     def get(self, request, format=None):
         dir = os.getcwd() + '/backend/captcha_images/clean/'
         image = random.choice(os.listdir(dir))
         image_name = image.split('.')[0]
+        print(image_name)
         request.user.profile.captcha = image_name
         request.user.profile.save()
         with open(dir + image, 'rb') as fh:
@@ -55,9 +56,10 @@ class GetMyImage(APIView):
 
 
 class SubmitBid(APIView):
-    permission_classes = (SessionOpenPermission,)
+    # permission_classes = (SessionOpenPermission,)
 
     def post(self, request, format=None):
+        print("RECIEVED POST THING")
         print("===============\n\n\n")
         print(request.data)
         print(request.user.profile.captcha)

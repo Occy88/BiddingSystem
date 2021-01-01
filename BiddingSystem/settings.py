@@ -21,8 +21,8 @@ MASTER_BASE_DIR = os.path.dirname(__file__)
 SECRET_KEY = 'v8ojti^$1m0ys%*q#qv*b9(+6)am3)^t1n601$rhk!6m2#&rmi'
 API_KEY_SECRET = 'ti^$0ys%1m0ys%n601$rhk!*q#q1$rhk!6m2#&m0ys%'
 # SECURITY WARNING: don't run with debug turned on in production!
-ENV_ROLE = 'production'
-# ENV_ROLE = 'development'
+# ENV_ROLE = 'production'
+ENV_ROLE = 'development'
 if ENV_ROLE == 'production':
     print("PRODUCTION")
     BASE_URL = 'http://localhost:8080/staticfiles/'
@@ -209,6 +209,24 @@ if HEROKU:
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_RESULT_SERIALIZER = 'json'
     CELERY_TIMEZONE = TIME_ZONE
+    CELERY_BEAT_SCHEDULE = {
+        'task-number-1': {
+            'task': 'backend.tasks.start_session',
+            'schedule': crontab(minute='*/2'),
+            'args': ('')
+        },
+        'ask-number-2': {
+            'task': 'backend.tasks.end_session',
+            'schedule': crontab(minute='1-59/2'),
+            'args': ('')
+        }
+    }
+else:
+    CELERY_BROKER_URL = 'redis://localhost:6379'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+    CELERY_ACCEPT_CONTENT = ['json']
+    CELERY_RESULT_SERIALIZER = 'json'
+    CELERY_TASK_SERIALIZER = 'json'
     CELERY_BEAT_SCHEDULE = {
         'task-number-1': {
             'task': 'backend.tasks.start_session',
